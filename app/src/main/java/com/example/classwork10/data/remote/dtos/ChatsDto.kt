@@ -19,5 +19,5 @@ data class ChatsDto(
     @Json(name="is_typing")
     val isTyping: Boolean,
     @Json(name="updated_date")
-    val updatedDate: Long
+    val updatedDate: Long = System.currentTimeMillis()
 )

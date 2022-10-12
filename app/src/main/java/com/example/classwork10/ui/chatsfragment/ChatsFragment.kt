@@ -5,8 +5,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.classwork10.common.enums.MessageType
 import com.example.classwork10.common.responsestate.ResponseState
 import com.example.classwork10.databinding.FragmentChatsBinding
+import com.example.classwork10.domain.models.ChatModel
 import com.example.classwork10.ui.basefragments.BaseFragment
 import com.example.classwork10.ui.chatsfragment.adapter.ChatAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +32,9 @@ class ChatsFragment : BaseFragment<FragmentChatsBinding>(FragmentChatsBinding::i
                 viewModel.stateFlow.collect{
                     if(it is ResponseState.Success){
                         adapter.submitList(it.model)
+                    }
+                    if(it is ResponseState.Error) {
+                        toast(it.message)
                     }
                 }
             }
