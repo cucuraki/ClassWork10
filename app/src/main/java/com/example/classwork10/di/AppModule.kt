@@ -1,6 +1,9 @@
 package com.example.classwork10.di
 
 import com.example.classwork10.data.remote.apis.ChatsApi
+import com.example.classwork10.data.repositories.ChatRepositoryImpl
+import com.example.classwork10.data.repositories.responsehandlers.ResponseHandler
+import com.example.classwork10.domain.repositorys.ChatsRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -29,4 +32,8 @@ object AppModule {
     @Provides
     @Singleton
     fun getApi(retrofit: Retrofit): ChatsApi = retrofit.create(ChatsApi::class.java)
+
+    @Singleton
+    @Provides
+    fun getRepo(api: ChatsApi, handler: ResponseHandler): ChatsRepository = ChatRepositoryImpl(api, handler)
 }
